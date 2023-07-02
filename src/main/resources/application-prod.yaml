@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://service-db:5432/library_helper
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driverClassName: org.postgresql.Driver
