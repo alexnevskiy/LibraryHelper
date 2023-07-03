@@ -41,8 +41,11 @@ public class ReaderService {
         reader.setFirstName(readerDto.firstName());
         reader.setLastName(readerDto.lastName());
         ReaderEntity readerEntity = readerRepository.save(reader);
-        logger.info("Reader created: {}", readerDto);
-        return new ReaderDto(readerEntity.getId(), readerEntity.getFirstName(), readerEntity.getLastName());
+        ReaderDto newReader = new ReaderDto(readerEntity.getId(),
+                readerEntity.getFirstName(),
+                readerEntity.getLastName());
+        logger.info("Reader created: {}", newReader);
+        return newReader;
     }
 
     public ReaderDto updateReader(ReaderDto readerDto) throws NotFoundException {

@@ -16,9 +16,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.poly.utils.ApplicationConstants.DATE_FORMATTER;
 
 @Service
 public class EventService {
@@ -48,14 +49,15 @@ public class EventService {
         event.setReader(reader);
         event.setBook(book);
         event.setEventType(validateEventType(eventDto.eventType()).name());
-        event.setEventDatetime(LocalDateTime.parse(eventDto.eventDatetime(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")));
+        event.setEventDatetime(LocalDateTime.parse(eventDto.eventDatetime()));
         EventEntity eventEntity = eventRepository.save(event);
-        logger.info("Event created: {}", eventDto);
-        return new EventDto(eventEntity.getId(),
+        EventDto newEvent = new EventDto(eventEntity.getId(),
                 eventEntity.getBook().getId(),
                 eventEntity.getReader().getId(),
                 eventEntity.getEventType(),
-                eventEntity.getEventDatetime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")));
+                eventEntity.getEventDatetime().format(DATE_FORMATTER));
+        logger.info("Event created: {}", newEvent);
+        return newEvent;
     }
 
     public List<EventTypeDto> getEventTypes() {

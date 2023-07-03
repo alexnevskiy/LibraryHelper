@@ -43,8 +43,9 @@ public class BookService {
         book.setName(bookDto.name());
         book.setAuthor(bookDto.author());
         BookEntity bookEntity = bookRepository.save(book);
-        logger.info("Book created: {}", bookDto);
-        return new BookDto(bookEntity.getId(), bookEntity.getName(), bookEntity.getAuthor());
+        BookDto newBook = new BookDto(bookEntity.getId(), bookEntity.getName(), bookEntity.getAuthor());
+        logger.info("Book created: {}", newBook);
+        return newBook;
     }
 
     public BookDto updateBook(BookDto bookDto) throws NotFoundException {

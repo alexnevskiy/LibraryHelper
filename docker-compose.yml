@@ -23,8 +23,6 @@ services:
       SPRING_PROFILE: $SPRING_PROFILE
       POSTGRES_USER: $POSTGRES_USER
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-#    security_opt:
-#      - seccomp:unconfined
     depends_on:
       service-db:
         condition: service_healthy
